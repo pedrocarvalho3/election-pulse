@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:8080
+
+### Consultar extrato
+GET {{baseUrl}}/clientes/2/extrato
+
+### Criar transação de crédito
+POST {{baseUrl}}/clientes/2/transacoes
+Content-Type: application/json
+
+{
+  "valor": 80000,
+  "tipo": "c",
+  "descricao": "salario"
+}
+
+### Criar transação de débito
+POST {{baseUrl}}/clientes/2/transacoes
+Content-Type: application/json
+
+{
+  "valor": 80000,
+  "tipo": "d",
+  "descricao": "mercado"
+}
+
+### Cliente inexistente
+GET {{baseUrl}}/clientes/999/extrato
