@@ -7,22 +7,22 @@ interface ClienteParams {
   id: string;
 }
 
+interface CandidateVote {
+  candidateNumber: number;
+  count: number;
+}
+
 interface BallotRequest {
-  ballotId: string;
   pollingStationCode: string;
-  votes: [{ candidateNumber: number; quantity: number }];
-  blankVotes: number;
-  nullVotes: number;
+  votes: CandidateVote[];
 }
 
 server.post<{ Params: ClienteParams; Body: BallotRequest }>(
   "/ballot",
-  async (request, reply) => {},
-);
-
-server.get<{ Params: ClienteParams }>(
-  "/clientes/:id/extrato",
-  async (request, reply) => {},
+  async (request, reply) => {
+    const result = request.body;
+    return reply.status(201).send({ result });
+  },
 );
 
 server.listen({ port: 8080 }, (err, address) => {
