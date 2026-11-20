@@ -15,3 +15,10 @@ CREATE TABLE ballot_votes (
     FOREIGN KEY (polling_station_id)
         REFERENCES polling_stations(id)
 );
+
+ALTER TABLE polling_stations
+ALTER COLUMN id SET DEFAULT gen_random_uuid();
+
+SELECT * FROM polling_stations
+
+SELECT * FROM ballot_votes

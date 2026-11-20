@@ -1,6 +1,15 @@
 @baseUrl = http://localhost:8080
 
 POST {{baseUrl}}/ballot
+Content-Type: application/json
+
+{
+  "pollingStationCode": "0002",
+  "votes": [
+    { "candidateNumber": 13, "count": 120 },
+    { "candidateNumber": 22, "count": 100 }
+  ]
+}
 
 ### Consultar extrato
 GET {{baseUrl}}/clientes/2/extrato
