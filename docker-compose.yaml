@@ -1,15 +1,15 @@
 services:
   postgres:
     image: postgres:16
-    container_name: rinha-postgres
+    container_name: election-postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: rinha
+      POSTGRES_DB: election
     ports:
       - "5432:5432"
     volumes:
-      - rinha_pgdata:/var/lib/postgres/data
+      - election_pgdata:/var/lib/postgres/data
 
 volumes:
-  rinha_pgdata:
+  election_pgdata:
