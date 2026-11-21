@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:8080
 
-POST {{baseUrl}}/ballot
+POST {{baseUrl}}/ballots
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### Consultar extrato
-GET {{baseUrl}}/clientes/2/extrato
+GET {{baseUrl}}/results
 
 ### Criar transação de crédito
 POST {{baseUrl}}/clientes/2/transacoes

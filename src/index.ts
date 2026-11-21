@@ -18,7 +18,7 @@ interface BallotRequest {
 }
 
 server.post<{ Params: ClienteParams; Body: BallotRequest }>(
-  "/ballot",
+  "/ballots",
   async (request, reply) => {
     const { pollingStationCode, votes } = request.body;
 
@@ -63,6 +63,39 @@ server.post<{ Params: ClienteParams; Body: BallotRequest }>(
     }
   },
 );
+
+interface CandidateResult {
+  candidateNumber: number;
+  count: string;
+}
+
+server.get<{ Params: ClienteParams }>("/results", async (request, reply) => {
+  const result = await pool.query<CandidateResult>(
+    `
+        SELECT
+            candidate_number AS "candidateNumber",
+            SUM(count) AS count
+        FROM ballot_votes
+        GROUP BY candidate_number
+        ORDER BY count DESC
+      `,
+  );
+
+  const candidates = result.rows.map((candidate) => ({
+    candidateNumber: candidate.candidateNumber,
+    count: Number(candidate.count),
+  }));
+
+  const totalVotes = candidates.reduce(
+    (total, candidate) => total + candidate.count,
+    0,
+  );
+
+  return {
+    totalVotes,
+    candidates,
+  };
+});
 
 server.listen({ port: 8080 }, (err, address) => {
   if (err) {
